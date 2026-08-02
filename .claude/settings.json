@@ -1,0 +1,10 @@
+{
+  "extraKnownMarketplaces": {
+    "uitkit": {
+      "source": {
+        "source": "github",
+        "repo": "uitbreidenos/uitkit"
+      }
+    }
+  }
+}
