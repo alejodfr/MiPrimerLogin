@@ -58,6 +58,13 @@ fun LoginScreen(){
         }) {
             Text("Entrar")
         }
+
+        when (val state = uiState) {
+            is LoginUiState.Idle -> { }
+            is LoginUiState.Loading -> { Text("Cargando...") }
+            is LoginUiState.Success -> { Text("¡Bienvenido, ${state.response.firstName}!") }
+            is LoginUiState.Error -> { Text("Error: ${state.message}") }
+        }
     }
 }
 
