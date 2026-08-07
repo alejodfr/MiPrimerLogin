@@ -29,7 +29,7 @@ fun LoginScreen(){
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            label = { Text("manuel salami") }
+            label = { Text("Manuel Salami") }
         )
 
         OutlinedTextField(
