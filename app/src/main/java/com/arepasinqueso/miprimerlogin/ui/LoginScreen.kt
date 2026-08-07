@@ -1,8 +1,10 @@
 package com.arepasinqueso.miprimerlogin.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,11 +27,16 @@ fun LoginScreen(){
     var password by remember { mutableStateOf("") }
     val scope = rememberCoroutineScope()
 
+    val isButtonEnabled = when (uiState) {
+        is LoginUiState.Loading, is LoginUiState.Success -> false
+        else -> true
+    }
+
     Column {
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            label = { Text("Manuel Salami") }
+            label = { Text("Usuario") }
         )
 
         OutlinedTextField(
@@ -55,13 +62,19 @@ fun LoginScreen(){
                 }
 
             }
-        }) {
+        },
+            enabled = isButtonEnabled) {
             Text("Entrar")
         }
 
         when (val state = uiState) {
             is LoginUiState.Idle -> { }
-            is LoginUiState.Loading -> { Text("Cargando...") }
+            is LoginUiState.Loading -> {
+                Row {
+                    CircularProgressIndicator()
+                    Text("Cargando...")
+                }
+            }
             is LoginUiState.Success -> { Text("¡Bienvenido, ${state.response.firstName}!") }
             is LoginUiState.Error -> { Text("Error: ${state.message}") }
         }
